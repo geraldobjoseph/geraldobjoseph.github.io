@@ -1,0 +1,1376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- ░░ SECURITY HEADERS ░░ -->
+  <meta http-equiv="X-Content-Type-Options"  content="nosniff" />
+  <meta http-equiv="X-Frame-Options"         content="DENY" />
+  <meta http-equiv="Referrer-Policy"         content="strict-origin-when-cross-origin" />
+  <meta http-equiv="Permissions-Policy"      content="camera=(), microphone=(), geolocation=()" />
+
+  <!-- ░░ PRIMARY META ░░ -->
+  <title>Geraldo Joseph — SysOps &amp; DevOps Engineer</title>
+  <meta name="description"  content="SysOps engineer with CompTIA A+ and Network+ credentials, actively transitioning to DevOps. Systems-first thinking, cloud-ready execution." />
+  <meta name="author"       content="Geraldo Joseph" />
+  <meta name="robots"       content="index, follow" />
+  <meta name="theme-color"  content="#F7F5F1" />
+
+  <!-- ░░ OPEN GRAPH (LinkedIn / social previews) ░░ -->
+  <meta property="og:type"        content="website" />
+  <meta property="og:title"       content="Geraldo Joseph — SysOps &amp; DevOps Engineer" />
+  <meta property="og:description" content="Systems-first thinking, cloud-ready execution. Building on A+, Network+, and Security+ to architect, automate, and scale infrastructure." />
+  <meta property="og:url"         content="https://geraldobjoseph.github.io" />
+
+  <!-- ░░ FONTS ░░ -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=IBM+Plex+Mono:wght@400;500&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ═══════════════════════════════════════════════════════
+       RESET
+    ═══════════════════════════════════════════════════════ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    img, svg { display: block; max-width: 100%; }
+
+    /* ═══════════════════════════════════════════════════════
+       DESIGN TOKENS
+    ═══════════════════════════════════════════════════════ */
+    :root {
+      /* Colours */
+      --bg:        #F7F5F1;
+      --ink:       #0C0C0C;
+      --muted:     #7A7A7A;
+      --accent:    #D63200;
+      --rule:      #D8D4CC;
+      --card-bg:   #EFECE6;
+      --earned:    #1A7A4A;
+      --progress:  #D63200;
+      --planned:   #7A7A7A;
+
+      /* Typography */
+      --font-display: 'Syne', sans-serif;
+      --font-mono:    'IBM Plex Mono', monospace;
+      --font-body:    'DM Sans', sans-serif;
+
+      /* Layout */
+      --page-pad: clamp(1.5rem, 5vw, 4rem);
+      --nav-h:    5rem;
+
+      /* Motion */
+      --ease: 0.25s ease;
+    }
+
+    /* ═══════════════════════════════════════════════════════
+       BASE
+    ═══════════════════════════════════════════════════════ */
+    html {
+      scroll-behavior: smooth;
+      -webkit-text-size-adjust: 100%;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: var(--font-body);
+      font-weight: 300;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* Respect user's motion preferences */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+      html { scroll-behavior: auto; }
+    }
+
+    /* Keyboard focus ring — visible only for keyboard users */
+    :focus { outline: none; }
+    :focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 3px;
+    }
+
+    /* ═══════════════════════════════════════════════════════
+       SKIP LINK  (accessibility — screen readers & keyboard)
+    ═══════════════════════════════════════════════════════ */
+    .skip-link {
+      position: absolute;
+      top: -100%;
+      left: 1rem;
+      z-index: 9999;
+      background: var(--ink);
+      color: var(--bg);
+      padding: 0.5rem 1.2rem;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: top 0.2s;
+    }
+    .skip-link:focus { top: 1rem; }
+
+    /* ═══════════════════════════════════════════════════════
+       NAVIGATION
+    ═══════════════════════════════════════════════════════ */
+    .site-nav {
+      position: fixed;
+      inset: 0 0 auto 0;
+      z-index: 200;
+      height: var(--nav-h);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 var(--page-pad);
+      background: var(--bg);
+      border-bottom: 1px solid var(--rule);
+      /* Frosted-glass effect on supported browsers */
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+
+    .nav-logo {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 1rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      text-decoration: none;
+      color: var(--ink);
+      flex-shrink: 0;
+    }
+
+    /* Desktop links */
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      text-decoration: none;
+      color: var(--muted);
+      transition: color var(--ease);
+    }
+
+    .nav-links a:hover,
+    .nav-links a[aria-current="true"] { color: var(--ink); }
+
+    /* Hamburger button — hidden on desktop */
+    .nav-toggle {
+      display: none;
+      flex-direction: column;
+      justify-content: space-between;
+      width: 24px;
+      height: 15px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+    }
+
+    .nav-toggle span {
+      display: block;
+      width: 100%;
+      height: 1.5px;
+      background: var(--ink);
+      transition: transform 0.3s ease, opacity 0.3s ease;
+      transform-origin: center;
+    }
+
+    /* Animate to × when open */
+    .nav-toggle[aria-expanded="true"] span:nth-child(1) { transform: translateY(6.75px) rotate(45deg); }
+    .nav-toggle[aria-expanded="true"] span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .nav-toggle[aria-expanded="true"] span:nth-child(3) { transform: translateY(-6.75px) rotate(-45deg); }
+
+    /* ═══════════════════════════════════════════════════════
+       HERO
+    ═══════════════════════════════════════════════════════ */
+    .hero {
+      min-height: 100vh;
+      min-height: 100svh; /* modern mobile — excludes browser chrome */
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: var(--nav-h) var(--page-pad) 5rem;
+      border-bottom: 1px solid var(--rule);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-inner { position: relative; z-index: 1; }
+
+    .hero-eyebrow {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1.5rem;
+      opacity: 0;
+      animation: fadeUp 0.7s 0.2s forwards;
+    }
+
+    .hero-name {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: clamp(3.5rem, 11vw, 10rem);
+      line-height: 0.9;
+      letter-spacing: -0.03em;
+      text-transform: uppercase;
+      color: var(--ink);
+      opacity: 0;
+      animation: fadeUp 0.8s 0.35s forwards;
+    }
+
+    .hero-name span {
+      display: block;
+      color: var(--accent);
+    }
+
+    .hero-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-top: 3.5rem;
+      gap: 2rem;
+      opacity: 0;
+      animation: fadeUp 0.8s 0.55s forwards;
+    }
+
+    .hero-title {
+      font-family: var(--font-body);
+      font-size: clamp(0.95rem, 2vw, 1.35rem);
+      font-weight: 300;
+      color: var(--ink);
+      max-width: 520px;
+      line-height: 1.5;
+    }
+    .hero-title strong { font-weight: 500; }
+
+    .hero-arrow {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .hero-arrow::before {
+      content: '';
+      display: inline-block;
+      width: 40px;
+      height: 1px;
+      background: var(--muted);
+    }
+
+    .hero-bg-text {
+      position: absolute;
+      bottom: -2rem;
+      right: -1rem;
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: clamp(6rem, 20vw, 22rem);
+      color: transparent;
+      -webkit-text-stroke: 1px var(--rule);
+      text-transform: uppercase;
+      letter-spacing: -0.04em;
+      pointer-events: none;
+      line-height: 1;
+      z-index: 0;
+      opacity: 0;
+      animation: fadeIn 1.2s 0.8s forwards;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+
+    /* ═══════════════════════════════════════════════════════
+       SECTIONS — shared styles
+    ═══════════════════════════════════════════════════════ */
+    .site-main > section {
+      padding: clamp(3.5rem, 8vh, 6rem) var(--page-pad);
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .section-label {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 3rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .section-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--rule);
+    }
+
+    .section-heading {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: clamp(2rem, 5vw, 4rem);
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+    }
+
+    /* ═══════════════════════════════════════════════════════
+       ABOUT
+    ═══════════════════════════════════════════════════════ */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 3rem;
+      margin-top: 3rem;
+    }
+
+    .about-text {
+      font-size: 1.05rem;
+      line-height: 1.8;
+      color: var(--ink);
+    }
+    .about-text p + p { margin-top: 1.2rem; }
+
+    .about-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.25rem;
+    }
+
+    .stat-card {
+      background: var(--card-bg);
+      padding: 1.6rem;
+      border-left: 3px solid var(--ink);
+    }
+
+    .stat-num {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 2.6rem;
+      line-height: 1;
+      color: var(--ink);
+    }
+
+    .stat-label {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-top: 0.4rem;
+    }
+
+    /* ═══════════════════════════════════════════════════════
+       CERTIFICATIONS
+    ═══════════════════════════════════════════════════════ */
+    .cert-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.5rem;
+      margin-top: 3rem;
+    }
+
+    .cert-card {
+      background: var(--card-bg);
+      padding: 2rem;
+      position: relative;
+      overflow: hidden;
+      transition: transform var(--ease), box-shadow var(--ease);
+    }
+    .cert-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 32px rgba(0,0,0,0.07);
+    }
+
+    .cert-status {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .cert-status::before {
+      content: '';
+      display: inline-block;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    /* Status colour variants */
+    .cert-card.earned     .cert-status { color: var(--earned);   }
+    .cert-card.earned     .cert-status::before { background: var(--earned); }
+
+    .cert-card.in-progress .cert-status { color: var(--progress); }
+    .cert-card.in-progress .cert-status::before {
+      background: var(--progress);
+      box-shadow: 0 0 0 3px rgba(214,50,0,0.15);
+    }
+
+    .cert-card.planned    .cert-status { color: var(--planned);  }
+    .cert-card.planned    .cert-status::before {
+      background: transparent;
+      border: 1.5px solid var(--planned);
+    }
+
+    .cert-name {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 1.3rem;
+      line-height: 1.2;
+      color: var(--ink);
+    }
+
+    .cert-issuer {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      color: var(--muted);
+      margin-top: 0.4rem;
+    }
+
+    .cert-detail {
+      font-size: 0.82rem;
+      color: var(--muted);
+      margin-top: 1rem;
+      line-height: 1.55;
+    }
+
+    .cert-bar {
+      height: 2px;
+      background: var(--rule);
+      margin-top: 1.5rem;
+      overflow: hidden;
+      border-radius: 2px;
+    }
+    .cert-bar-fill {
+      height: 100%;
+      background: var(--progress);
+      transform-origin: left;
+      transform: scaleX(0);
+    }
+
+    /* Earned: always full, no animation */
+    .cert-card.earned .cert-bar-fill {
+      background: var(--earned);
+      transform: scaleX(1);
+    }
+
+    /* In-progress: animates to --fill-amount (CSS custom property set inline) */
+    .cert-card.in-progress .cert-bar-fill {
+      animation: barGrow 1.4s 0.6s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+    }
+
+    @keyframes barGrow {
+      to { transform: scaleX(var(--fill-amount, 1)); }
+    }
+
+    /* ═══════════════════════════════════════════════════════
+       SKILLS
+    ═══════════════════════════════════════════════════════ */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 3rem;
+      margin-top: 3rem;
+    }
+
+    .skill-group-title {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 1.05rem;
+      margin-bottom: 1.2rem;
+      padding-bottom: 0.7rem;
+      border-bottom: 2px solid var(--ink);
+    }
+
+    .skill-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .skill-tag {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.06em;
+      padding: 0.35rem 0.85rem;
+      background: transparent;
+      border: 1px solid var(--rule);
+      color: var(--ink);
+      transition: background var(--ease), color var(--ease), border-color var(--ease);
+      cursor: default;
+    }
+
+    .skill-tag.core,
+    .skill-tag:hover {
+      background: var(--ink);
+      color: var(--bg);
+      border-color: var(--ink);
+    }
+
+    .skill-tag.learning {
+      border-color: var(--accent);
+      color: var(--accent);
+      background: transparent;
+    }
+    .skill-tag.learning:hover {
+      background: var(--accent);
+      color: var(--bg);
+      border-color: var(--accent);
+    }
+
+    .skills-legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      align-items: center;
+      margin-top: 2.5rem;
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      color: var(--muted);
+      letter-spacing: 0.08em;
+    }
+
+    .legend-item { display: flex; align-items: center; gap: 0.6rem; }
+
+    .legend-swatch {
+      padding: 0.2rem 0.55rem;
+      font-size: 0.65rem;
+      line-height: 1.4;
+    }
+    .legend-swatch.core     { background: var(--ink); color: var(--bg); }
+    .legend-swatch.building { border: 1px solid var(--accent); color: var(--accent); }
+
+    /* ═══════════════════════════════════════════════════════
+       ROADMAP
+    ═══════════════════════════════════════════════════════ */
+    .roadmap {
+      margin-top: 3rem;
+      position: relative;
+    }
+    .roadmap::before {
+      content: '';
+      position: absolute;
+      left: 1.25rem;
+      top: 0.8rem;
+      bottom: 0;
+      width: 1px;
+      background: var(--rule);
+    }
+
+    .roadmap-item {
+      display: grid;
+      grid-template-columns: 2.5rem 1fr;
+      gap: 1.75rem;
+      margin-bottom: 3rem;
+      align-items: start;
+    }
+
+    .roadmap-dot {
+      width: 2.5rem;
+      height: 2.5rem;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      font-weight: 500;
+      z-index: 1;
+      flex-shrink: 0;
+    }
+    .roadmap-dot.done   { background: var(--earned); color: #fff; }
+    .roadmap-dot.active { background: var(--accent);  color: #fff; box-shadow: 0 0 0 5px rgba(214,50,0,0.12); }
+    .roadmap-dot.next   { background: var(--bg); color: var(--muted); border: 1.5px solid var(--rule); }
+
+    .roadmap-content-title {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 1.1rem;
+      line-height: 1.2;
+    }
+    .roadmap-content-desc {
+      font-size: 0.88rem;
+      color: var(--muted);
+      margin-top: 0.3rem;
+      line-height: 1.55;
+    }
+
+    .roadmap-tag {
+      display: inline-block;
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.2rem 0.6rem;
+      margin-top: 0.6rem;
+    }
+    .roadmap-tag.done   { background: rgba(26,122,74,0.1);  color: var(--earned);  }
+    .roadmap-tag.active { background: rgba(214,50,0,0.1);   color: var(--accent);  }
+    .roadmap-tag.next   { background: var(--card-bg);       color: var(--muted);   }
+
+    /* ═══════════════════════════════════════════════════════
+       CONTACT
+    ═══════════════════════════════════════════════════════ */
+    .contact-section {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 2rem;
+    }
+
+    .contact-big {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: clamp(2rem, 6vw, 5rem);
+      line-height: 1;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+    }
+
+    .contact-sub {
+      font-size: 1rem;
+      color: var(--muted);
+      max-width: 480px;
+      line-height: 1.7;
+    }
+
+    .contact-links {
+      display: flex;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .contact-link {
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      text-decoration: none;
+      color: var(--ink);
+      border-bottom: 1px solid var(--ink);
+      padding-bottom: 2px;
+      transition: color var(--ease), border-color var(--ease);
+    }
+    .contact-link:hover { color: var(--accent); border-color: var(--accent); }
+
+    /* ═══════════════════════════════════════════════════════
+       FOOTER
+    ═══════════════════════════════════════════════════════ */
+    .site-footer {
+      padding: 2rem var(--page-pad);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .footer-copy {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      color: var(--muted);
+      letter-spacing: 0.08em;
+      /* The secret admin trigger lives here — no visual hint */
+      cursor: default;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+
+    .footer-tag {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      color: var(--muted);
+    }
+    .footer-tag .arrow { color: var(--accent); }
+
+    /* ═══════════════════════════════════════════════════════
+       HIDDEN ADMIN OVERLAY
+       Activated by triple-clicking the footer copyright text.
+       Actual security = GitHub authentication.
+    ═══════════════════════════════════════════════════════ */
+    #admin-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(12,12,12,0.88);
+      z-index: 9999;
+      align-items: center;
+      justify-content: center;
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+    }
+    #admin-overlay.open { display: flex; }
+
+    .admin-panel {
+      background: var(--bg);
+      border: 1px solid var(--rule);
+      padding: 2.5rem;
+      max-width: 440px;
+      width: calc(100% - 3rem);
+    }
+
+    .admin-panel h2 {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1rem;
+    }
+
+    .admin-panel p {
+      font-size: 0.85rem;
+      color: var(--muted);
+      line-height: 1.65;
+      margin-bottom: 1.5rem;
+    }
+
+    .admin-links {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .admin-link {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      text-decoration: none;
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      letter-spacing: 0.06em;
+      color: var(--ink);
+      border: 1px solid var(--rule);
+      padding: 0.85rem 1rem;
+      transition: border-color var(--ease), background var(--ease);
+    }
+    .admin-link:hover { border-color: var(--ink); background: var(--card-bg); }
+
+    .admin-close {
+      display: block;
+      margin-top: 1.5rem;
+      background: none;
+      border: none;
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      cursor: pointer;
+      padding: 0;
+    }
+    .admin-close:hover { color: var(--ink); }
+
+    /* ═══════════════════════════════════════════════════════
+       ANIMATIONS
+    ═══════════════════════════════════════════════════════ */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0);    }
+    }
+    @keyframes fadeIn {
+      to { opacity: 1; }
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(18px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.visible { opacity: 1; transform: none; }
+
+    /* ═══════════════════════════════════════════════════════
+       RESPONSIVE — Tablet  ≤ 900px
+    ═══════════════════════════════════════════════════════ */
+    @media (min-width: 900px) {
+      .about-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 5rem;
+        align-items: start;
+      }
+    }
+
+    /* ═══════════════════════════════════════════════════════
+       RESPONSIVE — Mobile nav  ≤ 768px
+    ═══════════════════════════════════════════════════════ */
+    @media (max-width: 768px) {
+      /* Show hamburger */
+      .nav-toggle { display: flex; }
+
+      /* Slide-down mobile menu */
+      .nav-links {
+        display: none;
+        position: fixed;
+        top: var(--nav-h);
+        left: 0;
+        right: 0;
+        background: var(--bg);
+        border-bottom: 1px solid var(--rule);
+        flex-direction: column;
+        gap: 0;
+        padding: 0.5rem 0;
+        /* Subtle shadow */
+        box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+      }
+
+      .nav-links.open { display: flex; }
+
+      .nav-links li { width: 100%; }
+
+      .nav-links a {
+        display: block;
+        padding: 1rem var(--page-pad);
+        font-size: 0.82rem;
+        letter-spacing: 0.08em;
+        border-bottom: 1px solid var(--rule);
+        color: var(--muted);
+      }
+
+      .nav-links a:hover,
+      .nav-links a[aria-current="true"] { color: var(--ink); }
+
+      /* Hero */
+      .hero-bottom { flex-direction: column; align-items: flex-start; margin-top: 2.5rem; }
+      .hero-arrow  { display: none; }
+    }
+
+    /* ═══════════════════════════════════════════════════════
+       RESPONSIVE — Small mobile  ≤ 480px
+    ═══════════════════════════════════════════════════════ */
+    @media (max-width: 480px) {
+      .cert-grid   { grid-template-columns: 1fr; }
+      .skills-grid { grid-template-columns: 1fr; }
+      .site-footer { flex-direction: column; align-items: center; text-align: center; }
+    }
+
+    /* ═══════════════════════════════════════════════════════
+       RESPONSIVE — Wide desktop  ≥ 1440px
+    ═══════════════════════════════════════════════════════ */
+    @media (min-width: 1440px) {
+      :root { --page-pad: 8rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Accessibility: jump to main content (keyboard / screen reader users) -->
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+
+  <!-- ░░░░ NAVIGATION ░░░░ -->
+  <nav class="site-nav" role="navigation" aria-label="Main navigation">
+    <a href="#top" class="nav-logo" aria-label="Geraldo Joseph — back to top">GJ</a>
+
+    <!-- Hamburger (visible on mobile only) -->
+    <button class="nav-toggle"
+            aria-expanded="false"
+            aria-controls="nav-menu"
+            aria-label="Open navigation menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+
+    <ul class="nav-links" id="nav-menu" role="list">
+      <li><a href="#about">About</a></li>
+      <li><a href="#certs">Certs</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#roadmap">Roadmap</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- ░░░░ MAIN CONTENT ░░░░ -->
+  <main class="site-main" id="main-content">
+
+    <!-- ──────────── HERO ──────────── -->
+    <section class="hero" id="top" aria-label="Introduction">
+      <div class="hero-inner">
+        <p class="hero-eyebrow">SysOps Engineer · DevOps Transition · IT Professional</p>
+
+        <h1 class="hero-name">
+          Geraldo<span>Joseph</span>
+        </h1>
+
+        <div class="hero-bottom">
+          <p class="hero-title">
+            <strong>Systems-first thinking, cloud-ready execution.</strong><br>
+            Building on a solid foundation of A+, Network+, and Security+ to architect, automate, and scale infrastructure the right way.
+          </p>
+          <p class="hero-arrow" aria-hidden="true">Scroll to explore</p>
+        </div>
+      </div>
+
+      <!-- Decorative background wordmark -->
+      <span class="hero-bg-text" aria-hidden="true">OPS</span>
+    </section>
+
+    <!-- ──────────── ABOUT ──────────── -->
+    <section id="about" aria-labelledby="about-heading">
+      <div class="section-label" aria-hidden="true">01 — About</div>
+
+      <div class="about-grid reveal">
+        <div>
+          <h2 id="about-heading" class="section-heading">
+            Infrastructure rooted.<br>Cloud-bound.
+          </h2>
+          <div class="about-text" style="margin-top:2rem;">
+            <p>
+              I'm a SysOps engineer with a strong technical foundation built through hands-on
+              experience and industry-recognised certifications. My work centres on maintaining,
+              securing, and optimising systems — and I'm now actively expanding that into the
+              DevOps space.
+            </p>
+            <p>
+              The transition isn't a pivot — it's a natural evolution. Understanding how
+              infrastructure works at a deep level makes me a better engineer when it comes to
+              automation, CI/CD, and cloud architecture. I build things that last.
+            </p>
+            <p>
+              Currently pursuing CompTIA Security+ (course complete, exam imminent), with
+              Linux+ and AWS Cloud Practitioner queued up after that.
+            </p>
+          </div>
+        </div>
+
+        <div class="about-stats reveal">
+          <div class="stat-card">
+            <div class="stat-num">2</div>
+            <div class="stat-label">Certs Earned</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-num">1</div>
+            <div class="stat-label">Exam Ready</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-num">2+</div>
+            <div class="stat-label">Next in Pipeline</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-num">∞</div>
+            <div class="stat-label">Drive to Build</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ──────────── CERTIFICATIONS ──────────── -->
+    <section id="certs" aria-labelledby="certs-heading">
+      <div class="section-label" aria-hidden="true">02 — Certifications</div>
+      <h2 id="certs-heading" class="section-heading reveal">
+        Credentials that<br>carry weight.
+      </h2>
+
+      <div class="cert-grid">
+
+        <!--
+          CERT CARD TEMPLATE — copy/paste to add a new cert
+          Classes: earned | in-progress | planned
+          For in-progress: set  style="--fill-amount: 0.75"  (0–1) on .cert-bar-fill
+        -->
+
+        <div class="cert-card earned reveal">
+          <div class="cert-status">Earned</div>
+          <div class="cert-name">CompTIA A+</div>
+          <div class="cert-issuer">CompTIA · Core IT Fundamentals</div>
+          <div class="cert-detail">Hardware, OS, networking, security, and operational procedures — the bedrock of IT competency.</div>
+          <div class="cert-bar"><div class="cert-bar-fill"></div></div>
+        </div>
+
+        <div class="cert-card earned reveal">
+          <div class="cert-status">Earned</div>
+          <div class="cert-name">CompTIA Network+</div>
+          <div class="cert-issuer">CompTIA · Networking Essentials</div>
+          <div class="cert-detail">Network infrastructure, protocols, routing, switching, and troubleshooting. Foundation for cloud-ready networking.</div>
+          <div class="cert-bar"><div class="cert-bar-fill"></div></div>
+        </div>
+
+        <!-- in-progress — fill-amount: 0.88 = 88% complete -->
+        <div class="cert-card in-progress reveal">
+          <div class="cert-status">Exam Ready</div>
+          <div class="cert-name">CompTIA Security+</div>
+          <div class="cert-issuer">CompTIA · Cybersecurity Baseline</div>
+          <div class="cert-detail">Udemy course complete. Covering threats, identity, architecture, and operations. Exam scheduled imminently.</div>
+          <div class="cert-bar">
+            <div class="cert-bar-fill" style="--fill-amount: 0.88;"></div>
+          </div>
+        </div>
+
+        <div class="cert-card planned reveal">
+          <div class="cert-status">Up Next</div>
+          <div class="cert-name">CompTIA Linux+</div>
+          <div class="cert-issuer">CompTIA · Linux Systems Admin</div>
+          <div class="cert-detail">Command line mastery, scripting, permissions, and system management — essential for any DevOps pipeline.</div>
+          <div class="cert-bar" style="opacity:0.3"><div class="cert-bar-fill"></div></div>
+        </div>
+
+        <div class="cert-card planned reveal">
+          <div class="cert-status">Planned</div>
+          <div class="cert-name">AWS Cloud Practitioner</div>
+          <div class="cert-issuer">Amazon Web Services · Cloud Foundations</div>
+          <div class="cert-detail">Core AWS services, cloud concepts, pricing, and architecture. The gateway to cloud-native DevOps work.</div>
+          <div class="cert-bar" style="opacity:0.3"><div class="cert-bar-fill"></div></div>
+        </div>
+
+        <div class="cert-card planned reveal">
+          <div class="cert-status">Considering</div>
+          <div class="cert-name">AWS Solutions Architect</div>
+          <div class="cert-issuer">Amazon Web Services · Associate Level</div>
+          <div class="cert-detail">Designing distributed systems on AWS. The natural next step after Cloud Practitioner for a DevOps trajectory.</div>
+          <div class="cert-bar" style="opacity:0.3"><div class="cert-bar-fill"></div></div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ──────────── SKILLS ──────────── -->
+    <section id="skills" aria-labelledby="skills-heading">
+      <div class="section-label" aria-hidden="true">03 — Skills</div>
+      <h2 id="skills-heading" class="section-heading reveal">
+        What I bring<br>to the table.
+      </h2>
+
+      <div class="skills-grid reveal">
+
+        <div>
+          <div class="skill-group-title">Systems &amp; Infrastructure</div>
+          <div class="skill-tags">
+            <span class="skill-tag core">System Administration</span>
+            <span class="skill-tag core">Network Configuration</span>
+            <span class="skill-tag core">Hardware Troubleshooting</span>
+            <span class="skill-tag core">Windows Server</span>
+            <span class="skill-tag core">Active Directory</span>
+            <span class="skill-tag core">DNS / DHCP</span>
+            <span class="skill-tag core">TCP/IP</span>
+            <span class="skill-tag core">Virtualisation</span>
+          </div>
+        </div>
+
+        <div>
+          <div class="skill-group-title">Security</div>
+          <div class="skill-tags">
+            <span class="skill-tag core">Threat Analysis</span>
+            <span class="skill-tag core">Firewalls &amp; ACLs</span>
+            <span class="skill-tag core">Identity &amp; Access Management</span>
+            <span class="skill-tag core">Incident Response</span>
+            <span class="skill-tag learning">Security+ (Exam Ready)</span>
+          </div>
+        </div>
+
+        <div>
+          <div class="skill-group-title">DevOps &amp; Cloud (Building)</div>
+          <div class="skill-tags">
+            <span class="skill-tag learning">Linux (Advanced)</span>
+            <span class="skill-tag learning">Bash Scripting</span>
+            <span class="skill-tag learning">AWS</span>
+            <span class="skill-tag learning">CI/CD Concepts</span>
+            <span class="skill-tag learning">Infrastructure as Code</span>
+            <span class="skill-tag learning">Docker</span>
+            <span class="skill-tag learning">Git</span>
+          </div>
+        </div>
+
+        <div>
+          <div class="skill-group-title">Professional</div>
+          <div class="skill-tags">
+            <span class="skill-tag core">Root Cause Analysis</span>
+            <span class="skill-tag core">Documentation</span>
+            <span class="skill-tag core">Ticketing &amp; ITSM</span>
+            <span class="skill-tag core">User Support</span>
+            <span class="skill-tag core">Self-Directed Learning</span>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="skills-legend reveal">
+        <div class="legend-item">
+          <span class="legend-swatch core">■ Core</span>
+          <span>Solid, proven</span>
+        </div>
+        <div class="legend-item">
+          <span class="legend-swatch building">■ Building</span>
+          <span>Actively developing</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ──────────── ROADMAP ──────────── -->
+    <section id="roadmap" aria-labelledby="roadmap-heading">
+      <div class="section-label" aria-hidden="true">04 — Career Roadmap</div>
+      <h2 id="roadmap-heading" class="section-heading reveal">
+        The path.<br>Each step deliberate.
+      </h2>
+
+      <div class="roadmap reveal">
+
+        <div class="roadmap-item">
+          <div class="roadmap-dot done" aria-label="Complete">✓</div>
+          <div>
+            <div class="roadmap-content-title">CompTIA A+ &amp; Network+</div>
+            <div class="roadmap-content-desc">Established a deep, vendor-neutral understanding of hardware, OS, and networking fundamentals that underpin everything else.</div>
+            <span class="roadmap-tag done">Complete</span>
+          </div>
+        </div>
+
+        <div class="roadmap-item">
+          <div class="roadmap-dot active" aria-label="Current step">→</div>
+          <div>
+            <div class="roadmap-content-title">CompTIA Security+</div>
+            <div class="roadmap-content-desc">Udemy course finished. Ready to sit the official exam. Security knowledge is non-negotiable for any serious infrastructure or DevOps role.</div>
+            <span class="roadmap-tag active">Exam Imminent</span>
+          </div>
+        </div>
+
+        <div class="roadmap-item">
+          <div class="roadmap-dot next" aria-label="Step 3">3</div>
+          <div>
+            <div class="roadmap-content-title">CompTIA Linux+</div>
+            <div class="roadmap-content-desc">Deep command-line proficiency, shell scripting, process management, and system security. Linux is the OS of the cloud and DevOps world.</div>
+            <span class="roadmap-tag next">Up Next</span>
+          </div>
+        </div>
+
+        <div class="roadmap-item">
+          <div class="roadmap-dot next" aria-label="Step 4">4</div>
+          <div>
+            <div class="roadmap-content-title">AWS Cloud Practitioner / Solutions Architect</div>
+            <div class="roadmap-content-desc">Cloud-first infrastructure design on AWS. Bridging the gap from SysOps to a full DevOps/cloud engineering role. The destination is clear.</div>
+            <span class="roadmap-tag next">Planned</span>
+          </div>
+        </div>
+
+        <div class="roadmap-item">
+          <div class="roadmap-dot next" aria-label="Goal">↑</div>
+          <div>
+            <div class="roadmap-content-title">DevOps Engineer</div>
+            <div class="roadmap-content-desc">The goal: automating deployments, building pipelines, managing cloud infrastructure at scale — backed by a SysOps engineer's intuition for what breaks and why.</div>
+            <span class="roadmap-tag next">Destination</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ──────────── CONTACT ──────────── -->
+    <section id="contact" aria-labelledby="contact-heading">
+      <div class="section-label" aria-hidden="true">05 — Contact</div>
+      <div class="contact-section reveal">
+        <h2 id="contact-heading" class="contact-big">
+          Let's connect<br>&amp; build something.
+        </h2>
+        <p class="contact-sub">
+          Open to DevOps opportunities, collaborations, and conversations about infrastructure,
+          cloud, and the journey from SysOps to the cloud-native world.
+        </p>
+        <div class="contact-links">
+          <a href="mailto:geraldjoseph@live.co.uk" class="contact-link">Email</a>
+          <a href="https://linkedin.com/in/geraldobjoseph"
+             class="contact-link"
+             target="_blank"
+             rel="noopener noreferrer">LinkedIn</a>
+          <a href="https://github.com/geraldobjoseph"
+             class="contact-link"
+             target="_blank"
+             rel="noopener noreferrer">GitHub</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ░░░░ FOOTER ░░░░ -->
+  <footer class="site-footer">
+    <!--
+      SECRET: Triple-click this copyright text to open the admin panel.
+      Real security is handled by GitHub authentication.
+    -->
+    <span class="footer-copy" id="footer-copy">
+      © <span id="footer-year"></span> Geraldo Joseph. All rights reserved.
+    </span>
+    <span class="footer-tag">SysOps <span class="arrow">→</span> DevOps</span>
+  </footer>
+
+  <!-- ░░░░ HIDDEN ADMIN OVERLAY ░░░░ -->
+  <!--
+    This panel is invisible until triggered (triple-click on footer copyright).
+    Clicking "Edit on GitHub" requires GitHub login — that IS the security layer.
+    Update the repo URL below if your repository name changes.
+  -->
+  <div id="admin-overlay"
+       role="dialog"
+       aria-modal="true"
+       aria-label="Site admin panel"
+       aria-hidden="true">
+    <div class="admin-panel">
+      <h2>⚙ Admin — Edit Site</h2>
+      <p>
+        GitHub sign-in is required to make changes. Choose where you want to edit.
+        Your changes go live automatically after a commit.
+      </p>
+      <div class="admin-links">
+        <!--
+          UPDATE THIS URL if your repo is not geraldobjoseph/geraldobjoseph.github.io
+          Pattern: https://github.com/USERNAME/REPO/edit/BRANCH/index.html
+        -->
+        <a class="admin-link"
+           href="https://github.com/geraldobjoseph/geraldobjoseph.github.io/edit/main/index.html"
+           target="_blank"
+           rel="noopener noreferrer">
+          ✎ &nbsp; Edit index.html on GitHub
+        </a>
+        <a class="admin-link"
+           href="https://github.com/geraldobjoseph/geraldobjoseph.github.io"
+           target="_blank"
+           rel="noopener noreferrer">
+          ⌂ &nbsp; Repository Dashboard
+        </a>
+      </div>
+      <button class="admin-close" id="admin-close">✕ &nbsp; Close panel</button>
+    </div>
+  </div>
+
+  <script>
+    /* ─────────────────────────────────────────────────────
+       AUTO COPYRIGHT YEAR
+    ───────────────────────────────────────────────────── */
+    document.getElementById('footer-year').textContent = new Date().getFullYear();
+
+    /* ─────────────────────────────────────────────────────
+       SCROLL REVEAL
+    ───────────────────────────────────────────────────── */
+    const reveals = document.querySelectorAll('.reveal');
+
+    const revealObs = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const delay = parseInt(entry.target.dataset.delay || 0, 10);
+          setTimeout(() => entry.target.classList.add('visible'), delay * 90);
+          revealObs.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.08 });
+
+    reveals.forEach((el, i) => {
+      el.dataset.delay = i % 4;
+      revealObs.observe(el);
+    });
+
+    /* ─────────────────────────────────────────────────────
+       NAV — ACTIVE SECTION (highlights current nav link)
+    ───────────────────────────────────────────────────── */
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks  = document.querySelectorAll('.nav-links a');
+
+    const navObs = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          navLinks.forEach((link) => {
+            const isCurrent = link.getAttribute('href') === '#' + entry.target.id;
+            link.setAttribute('aria-current', isCurrent ? 'true' : 'false');
+          });
+        }
+      });
+    }, { threshold: 0.35 });
+
+    sections.forEach((s) => navObs.observe(s));
+
+    /* ─────────────────────────────────────────────────────
+       NAV — HAMBURGER (mobile)
+    ───────────────────────────────────────────────────── */
+    const navToggle = document.querySelector('.nav-toggle');
+    const navMenu   = document.getElementById('nav-menu');
+
+    navToggle.addEventListener('click', () => {
+      const isOpen = navToggle.getAttribute('aria-expanded') === 'true';
+      navToggle.setAttribute('aria-expanded', String(!isOpen));
+      navMenu.classList.toggle('open', !isOpen);
+    });
+
+    // Close menu when a nav link is tapped
+    navLinks.forEach((link) => {
+      link.addEventListener('click', () => {
+        navToggle.setAttribute('aria-expanded', 'false');
+        navMenu.classList.remove('open');
+      });
+    });
+
+    /* ─────────────────────────────────────────────────────
+       ESCAPE KEY — close nav & admin
+    ───────────────────────────────────────────────────── */
+    document.addEventListener('keydown', (e) => {
+      if (e.key !== 'Escape') return;
+      navToggle.setAttribute('aria-expanded', 'false');
+      navMenu.classList.remove('open');
+      closeAdmin();
+    });
+
+    /* ─────────────────────────────────────────────────────
+       HIDDEN ADMIN PANEL
+       Trigger: triple-click the footer copyright text
+       Security: GitHub login handles authentication
+    ───────────────────────────────────────────────────── */
+    const footerCopy   = document.getElementById('footer-copy');
+    const adminOverlay = document.getElementById('admin-overlay');
+    const adminCloseBtn = document.getElementById('admin-close');
+
+    let clickCount = 0;
+    let clickTimer = null;
+
+    footerCopy.addEventListener('click', () => {
+      clickCount++;
+      clearTimeout(clickTimer);
+      // Reset counter after 700ms of no clicks
+      clickTimer = setTimeout(() => { clickCount = 0; }, 700);
+      if (clickCount >= 3) {
+        clickCount = 0;
+        openAdmin();
+      }
+    });
+
+    function openAdmin() {
+      adminOverlay.classList.add('open');
+      adminOverlay.setAttribute('aria-hidden', 'false');
+      adminCloseBtn.focus();
+    }
+
+    function closeAdmin() {
+      adminOverlay.classList.remove('open');
+      adminOverlay.setAttribute('aria-hidden', 'true');
+      footerCopy.focus();
+    }
+
+    adminCloseBtn.addEventListener('click', closeAdmin);
+
+    // Click outside the panel to close
+    adminOverlay.addEventListener('click', (e) => {
+      if (e.target === adminOverlay) closeAdmin();
+    });
+  </script>
+
+</body>
+</html>
