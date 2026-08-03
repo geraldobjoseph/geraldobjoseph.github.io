@@ -900,6 +900,7 @@
       <li><a href="#certs">Certs</a></li>
       <li><a href="#skills">Skills</a></li>
       <li><a href="#roadmap">Roadmap</a></li>
+      <li><a href="#lab">Lab</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
   </nav>
@@ -1185,9 +1186,108 @@
       </div>
     </section>
 
+    <!-- ──────────── HOME LAB ──────────── -->
+    <section id="lab" aria-labelledby="lab-heading">
+      <div class="section-label" aria-hidden="true">06 — Home Lab</div>
+      <h2 id="lab-heading" class="section-heading reveal">
+        Infrastructure I<br>actually run.
+      </h2>
+
+      <div class="about-text reveal" style="margin-top:2rem; max-width:720px;">
+        <p>
+          Beyond certifications, I run a self-managed infrastructure lab that mirrors how
+          production Puppet environments are actually operated: GitOps workflow, encrypted
+          secrets, VPN-gated access, and full observability.
+        </p>
+      </div>
+
+      <!-- Architecture diagram -->
+      <div class="reveal" style="margin-top:3rem; background: var(--card-bg); padding: 2rem; overflow-x:auto;">
+        <svg viewBox="0 0 900 500" xmlns="http://www.w3.org/2000/svg" style="width:100%; min-width:640px; height:auto;" role="img" aria-label="Lab architecture diagram: GitHub repo triggers CI/CD, which joins WireGuard as an ephemeral peer and deploys via r10k to the Puppet master, which manages an agent node over a WireGuard tunnel, with both feeding Zabbix monitoring">
+          <defs>
+            <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+              <path d="M0,0 L10,5 L0,10 z" fill="var(--muted)" />
+            </marker>
+          </defs>
+
+          <!-- Git Repo -->
+          <rect x="40" y="40" width="220" height="70" fill="var(--bg)" stroke="var(--ink)" stroke-width="1.5"/>
+          <text x="150" y="70" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="13" fill="var(--ink)">Git Repo</text>
+          <text x="150" y="90" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10" fill="var(--muted)">dev → production branches</text>
+
+          <!-- GitHub Actions -->
+          <rect x="360" y="40" width="220" height="70" fill="var(--bg)" stroke="var(--ink)" stroke-width="1.5"/>
+          <text x="470" y="70" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="13" fill="var(--ink)">GitHub Actions</text>
+          <text x="470" y="90" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10" fill="var(--muted)">lint, validate, deploy</text>
+
+          <line x1="260" y1="75" x2="352" y2="75" stroke="var(--muted)" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+          <!-- Ephemeral WG Peer -->
+          <rect x="360" y="150" width="220" height="60" fill="var(--bg)" stroke="var(--accent)" stroke-width="1.5"/>
+          <text x="470" y="175" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="12" fill="var(--accent)">Ephemeral WireGuard Peer</text>
+          <text x="470" y="193" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10" fill="var(--muted)">joins mesh per deploy job</text>
+
+          <line x1="470" y1="110" x2="470" y2="142" stroke="var(--muted)" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+          <!-- Puppet Master -->
+          <rect x="360" y="260" width="220" height="80" fill="var(--bg)" stroke="var(--ink)" stroke-width="1.5"/>
+          <text x="470" y="288" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="13" fill="var(--ink)">Puppet Master</text>
+          <text x="470" y="306" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10" fill="var(--muted)">r10k + puppetserver</text>
+          <text x="470" y="322" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10" fill="var(--muted)">hiera-eyaml secrets</text>
+
+          <line x1="470" y1="210" x2="470" y2="252" stroke="var(--muted)" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+          <!-- Agent Node -->
+          <rect x="660" y="260" width="200" height="80" fill="var(--bg)" stroke="var(--ink)" stroke-width="1.5"/>
+          <text x="760" y="288" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="13" fill="var(--ink)">Agent Node</text>
+          <text x="760" y="306" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10" fill="var(--muted)">home lab VPS</text>
+          <text x="760" y="322" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10" fill="var(--muted)">SSH hardened</text>
+
+          <line x1="580" y1="300" x2="652" y2="300" stroke="var(--accent)" stroke-width="1.5" stroke-dasharray="4 3" marker-end="url(#arrow)"/>
+          <text x="616" y="290" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="9" fill="var(--accent)">VPN</text>
+
+          <!-- Zabbix -->
+          <rect x="460" y="410" width="220" height="70" fill="var(--bg)" stroke="var(--earned)" stroke-width="1.5"/>
+          <text x="570" y="440" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="13" fill="var(--earned)">Zabbix Monitoring</text>
+          <text x="570" y="458" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10" fill="var(--muted)">LLD, triggers, dashboards</text>
+
+          <line x1="470" y1="340" x2="540" y2="402" stroke="var(--muted)" stroke-width="1.5" marker-end="url(#arrow)"/>
+          <line x1="760" y1="340" x2="620" y2="402" stroke="var(--muted)" stroke-width="1.5" marker-end="url(#arrow)"/>
+        </svg>
+      </div>
+
+      <!-- Highlight cards -->
+      <div class="cert-grid" style="margin-top:2rem;">
+        <div class="cert-card earned reveal">
+          <div class="cert-status">Live</div>
+          <div class="cert-name">GitOps Pipeline</div>
+          <div class="cert-detail">Dev/production branch workflow with PR review, GitHub Actions lint &amp; validate, and r10k auto-deploy on merge.</div>
+        </div>
+        <div class="cert-card earned reveal">
+          <div class="cert-status">Live</div>
+          <div class="cert-name">Secrets Management</div>
+          <div class="cert-detail">All sensitive data (VPN keys, credentials) encrypted at rest via hiera-eyaml, never stored in plaintext in the repo.</div>
+        </div>
+        <div class="cert-card earned reveal">
+          <div class="cert-status">Live</div>
+          <div class="cert-name">Zero-Trust Access</div>
+          <div class="cert-detail">SSH exposed only over a WireGuard tunnel; CI/CD runners join as ephemeral peers scoped to the deploy job.</div>
+        </div>
+        <div class="cert-card earned reveal">
+          <div class="cert-status">Live</div>
+          <div class="cert-name">Full Observability</div>
+          <div class="cert-detail">Zabbix with Low-Level Discovery auto-monitors Docker containers, plus custom checks for Puppet Server JVM health and r10k deploy freshness.</div>
+        </div>
+      </div>
+
+      <p class="about-text reveal" style="margin-top:2rem; font-size:0.9rem; color:var(--muted);">
+        This is a private lab — happy to walk through it live or provide scoped, time-limited access on request.
+      </p>
+    </section>
+
     <!-- ──────────── CONTACT ──────────── -->
     <section id="contact" aria-labelledby="contact-heading">
-      <div class="section-label" aria-hidden="true">05 — Contact</div>
+      <div class="section-label" aria-hidden="true">07 — Contact</div>
       <div class="contact-section reveal">
         <h2 id="contact-heading" class="contact-big">
           Let's connect<br>&amp; build something.
