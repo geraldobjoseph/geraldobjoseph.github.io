@@ -952,8 +952,8 @@
               automation, CI/CD, and cloud architecture. I build things that last.
             </p>
             <p>
-              Currently pursuing CompTIA Security+ (course complete, exam imminent), with
-              Linux+ and AWS Cloud Practitioner queued up after that.
+              Currently pursuing CompTIA Security+ (course complete, exam imminent) and actively studying for AWS Cloud Practitioner, with
+              Linux+ queued up next — and deepening Windows/PowerShell skills through hands-on home lab work.
             </p>
           </div>
         </div>
@@ -968,7 +968,7 @@
             <div class="stat-label">Exam Ready</div>
           </div>
           <div class="stat-card">
-            <div class="stat-num">2+</div>
+            <div class="stat-num">3+</div>
             <div class="stat-label">Next in Pipeline</div>
           </div>
           <div class="stat-card">
@@ -1037,12 +1037,12 @@
           <div class="cert-bar" style="opacity:0.3"><div class="cert-bar-fill"></div></div>
         </div>
 
-        <div class="cert-card planned reveal">
-          <div class="cert-status">Planned</div>
+        <div class="cert-card in-progress reveal">
+          <div class="cert-status">Studying</div>
           <div class="cert-name">AWS Cloud Practitioner</div>
           <div class="cert-issuer">Amazon Web Services · Cloud Foundations</div>
-          <div class="cert-detail">Core AWS services, cloud concepts, pricing, and architecture. The gateway to cloud-native DevOps work.</div>
-          <div class="cert-bar" style="opacity:0.3"><div class="cert-bar-fill"></div></div>
+          <div class="cert-detail">Actively studying — core AWS services, cloud concepts, pricing, and architecture. The gateway to cloud-native DevOps work.</div>
+          <div class="cert-bar"><div class="cert-bar-fill" style="--fill-amount: 0.4;"></div></div>
         </div>
 
         <div class="cert-card planned reveal">
@@ -1050,6 +1050,14 @@
           <div class="cert-name">AWS Solutions Architect</div>
           <div class="cert-issuer">Amazon Web Services · Associate Level</div>
           <div class="cert-detail">Designing distributed systems on AWS. The natural next step after Cloud Practitioner for a DevOps trajectory.</div>
+          <div class="cert-bar" style="opacity:0.3"><div class="cert-bar-fill"></div></div>
+        </div>
+
+        <div class="cert-card planned reveal">
+          <div class="cert-status">Exploring</div>
+          <div class="cert-name">Microsoft Certified: Windows Server Hybrid Administrator</div>
+          <div class="cert-issuer">Microsoft · Windows Server / Hybrid Cloud</div>
+          <div class="cert-detail">Built a Puppet-managed Windows Server node (WinRM, WireGuard, PowerShell automation) in my home lab to close a Windows/PowerShell gap flagged in a recent interview — now scoping this cert to back that work up formally.</div>
           <div class="cert-bar" style="opacity:0.3"><div class="cert-bar-fill"></div></div>
         </div>
 
@@ -1072,6 +1080,7 @@
             <span class="skill-tag core">Network Configuration</span>
             <span class="skill-tag core">Hardware Troubleshooting</span>
             <span class="skill-tag core">Windows Server</span>
+            <span class="skill-tag core">PowerShell</span>
             <span class="skill-tag core">Active Directory</span>
             <span class="skill-tag core">DNS / DHCP</span>
             <span class="skill-tag core">TCP/IP</span>
@@ -1203,7 +1212,7 @@
 
       <!-- Architecture diagram -->
       <div class="reveal" style="margin-top:3rem; background: var(--card-bg); padding: 2rem; overflow-x:auto;">
-        <svg viewBox="0 0 900 500" xmlns="http://www.w3.org/2000/svg" style="width:100%; min-width:640px; height:auto;" role="img" aria-label="Lab architecture diagram: GitHub repo triggers CI/CD, which joins WireGuard as an ephemeral peer and deploys via r10k to the Puppet master, which manages an agent node over a WireGuard tunnel, with both feeding Zabbix monitoring">
+        <svg viewBox="0 0 900 460" xmlns="http://www.w3.org/2000/svg" style="width:100%; min-width:640px; height:auto;" role="img" aria-label="Lab architecture diagram: Git repo merges to production, pulled by the Puppet master via a scheduled r10k cron job, which manages Linux and Windows agent nodes over WireGuard, feeding Zabbix monitoring">
           <defs>
             <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
               <path d="M0,0 L10,5 L0,10 z" fill="var(--muted)" />
@@ -1213,46 +1222,37 @@
           <!-- Git Repo -->
           <rect x="40" y="40" width="220" height="70" fill="var(--bg)" stroke="var(--ink)" stroke-width="1.5"/>
           <text x="150" y="70" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="13" fill="var(--ink)">Git Repo</text>
-          <text x="150" y="90" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10" fill="var(--muted)">dev → production branches</text>
+          <text x="150" y="90" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10" fill="var(--muted)">dev → PR → production</text>
 
-          <!-- GitHub Actions -->
-          <rect x="360" y="40" width="220" height="70" fill="var(--bg)" stroke="var(--ink)" stroke-width="1.5"/>
-          <text x="470" y="70" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="13" fill="var(--ink)">GitHub Actions</text>
-          <text x="470" y="90" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10" fill="var(--muted)">lint, validate, deploy</text>
+          <!-- Puppet Master -->
+          <rect x="360" y="40" width="220" height="90" fill="var(--bg)" stroke="var(--ink)" stroke-width="1.5"/>
+          <text x="470" y="68" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="13" fill="var(--ink)">Puppet Master</text>
+          <text x="470" y="86" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10" fill="var(--muted)">r10k_cron: scheduled deploy</text>
+          <text x="470" y="102" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10" fill="var(--muted)">puppetserver + hiera-eyaml</text>
 
           <line x1="260" y1="75" x2="352" y2="75" stroke="var(--muted)" stroke-width="1.5" marker-end="url(#arrow)"/>
 
-          <!-- Ephemeral WG Peer -->
-          <rect x="360" y="150" width="220" height="60" fill="var(--bg)" stroke="var(--accent)" stroke-width="1.5"/>
-          <text x="470" y="175" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="12" fill="var(--accent)">Ephemeral WireGuard Peer</text>
-          <text x="470" y="193" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10" fill="var(--muted)">joins mesh per deploy job</text>
+          <!-- Linux Agent Node -->
+          <rect x="660" y="30" width="200" height="70" fill="var(--bg)" stroke="var(--ink)" stroke-width="1.5"/>
+          <text x="760" y="58" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="13" fill="var(--ink)">Linux Node</text>
+          <text x="760" y="76" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10" fill="var(--muted)">home lab VPS, SSH hardened</text>
 
-          <line x1="470" y1="110" x2="470" y2="142" stroke="var(--muted)" stroke-width="1.5" marker-end="url(#arrow)"/>
+          <!-- Windows Agent Node -->
+          <rect x="660" y="120" width="200" height="70" fill="var(--bg)" stroke="var(--ink)" stroke-width="1.5"/>
+          <text x="760" y="148" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="13" fill="var(--ink)">Windows Node</text>
+          <text x="760" y="166" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10" fill="var(--muted)">WinRM, locked to VPN subnet</text>
 
-          <!-- Puppet Master -->
-          <rect x="360" y="260" width="220" height="80" fill="var(--bg)" stroke="var(--ink)" stroke-width="1.5"/>
-          <text x="470" y="288" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="13" fill="var(--ink)">Puppet Master</text>
-          <text x="470" y="306" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10" fill="var(--muted)">r10k + puppetserver</text>
-          <text x="470" y="322" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10" fill="var(--muted)">hiera-eyaml secrets</text>
-
-          <line x1="470" y1="210" x2="470" y2="252" stroke="var(--muted)" stroke-width="1.5" marker-end="url(#arrow)"/>
-
-          <!-- Agent Node -->
-          <rect x="660" y="260" width="200" height="80" fill="var(--bg)" stroke="var(--ink)" stroke-width="1.5"/>
-          <text x="760" y="288" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="13" fill="var(--ink)">Agent Node</text>
-          <text x="760" y="306" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10" fill="var(--muted)">home lab VPS</text>
-          <text x="760" y="322" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10" fill="var(--muted)">SSH hardened</text>
-
-          <line x1="580" y1="300" x2="652" y2="300" stroke="var(--accent)" stroke-width="1.5" stroke-dasharray="4 3" marker-end="url(#arrow)"/>
-          <text x="616" y="290" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="9" fill="var(--accent)">VPN</text>
+          <line x1="580" y1="65" x2="652" y2="60" stroke="var(--accent)" stroke-width="1.5" stroke-dasharray="4 3" marker-end="url(#arrow)"/>
+          <line x1="580" y1="105" x2="652" y2="150" stroke="var(--accent)" stroke-width="1.5" stroke-dasharray="4 3" marker-end="url(#arrow)"/>
+          <text x="616" y="45" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="9" fill="var(--accent)">VPN</text>
 
           <!-- Zabbix -->
-          <rect x="460" y="410" width="220" height="70" fill="var(--bg)" stroke="var(--earned)" stroke-width="1.5"/>
-          <text x="570" y="440" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="13" fill="var(--earned)">Zabbix Monitoring</text>
-          <text x="570" y="458" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10" fill="var(--muted)">LLD, triggers, dashboards</text>
+          <rect x="460" y="330" width="220" height="70" fill="var(--bg)" stroke="var(--earned)" stroke-width="1.5"/>
+          <text x="570" y="360" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="13" fill="var(--earned)">Zabbix Monitoring</text>
+          <text x="570" y="378" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10" fill="var(--muted)">LLD, triggers, dashboards</text>
 
-          <line x1="470" y1="340" x2="540" y2="402" stroke="var(--muted)" stroke-width="1.5" marker-end="url(#arrow)"/>
-          <line x1="760" y1="340" x2="620" y2="402" stroke="var(--muted)" stroke-width="1.5" marker-end="url(#arrow)"/>
+          <line x1="470" y1="130" x2="540" y2="322" stroke="var(--muted)" stroke-width="1.5" marker-end="url(#arrow)"/>
+          <line x1="760" y1="190" x2="620" y2="322" stroke="var(--muted)" stroke-width="1.5" marker-end="url(#arrow)"/>
         </svg>
       </div>
 
@@ -1261,7 +1261,7 @@
         <div class="cert-card earned reveal">
           <div class="cert-status">Live</div>
           <div class="cert-name">GitOps Pipeline</div>
-          <div class="cert-detail">Dev/production branch workflow with PR review, GitHub Actions lint &amp; validate, and r10k auto-deploy on merge.</div>
+          <div class="cert-detail">Dev/production branch workflow with PR review; the Puppet master pulls and deploys production automatically via a scheduled r10k cron job — no external CI has standing access to the lab network.</div>
         </div>
         <div class="cert-card earned reveal">
           <div class="cert-status">Live</div>
@@ -1271,7 +1271,7 @@
         <div class="cert-card earned reveal">
           <div class="cert-status">Live</div>
           <div class="cert-name">Zero-Trust Access</div>
-          <div class="cert-detail">SSH exposed only over a WireGuard tunnel; CI/CD runners join as ephemeral peers scoped to the deploy job.</div>
+          <div class="cert-detail">SSH, the Puppet master, and Windows WinRM are all restricted to devices on the WireGuard tunnel — no public-facing admin interfaces, and firewall rules are Puppet-managed, not hand-maintained.</div>
         </div>
         <div class="cert-card earned reveal">
           <div class="cert-status">Live</div>
